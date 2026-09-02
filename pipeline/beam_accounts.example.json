@@ -1,0 +1,5 @@
+[
+  {"name": "beam1", "workspace": "8073c185-0aee-444d-ba0a-bb59df4a39c7", "token": "<PASTE TOKEN FROM PRIVATE STORE>", "max_parallel": 5},
+  {"name": "beam2", "workspace": "5e7a7bf3-1ee7-454a-acbf-176280416e30", "token": "<PASTE TOKEN FROM PRIVATE STORE>", "max_parallel": 5},
+  {"name": "beam3", "workspace": "(workspace name 7252d3)",             "token": "<PASTE TOKEN FROM PRIVATE STORE>", "max_parallel": 5}
+]

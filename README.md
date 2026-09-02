@@ -25,3 +25,5 @@ Produce short animated films (and game prototypes) by **collecting, arranging an
 4. Render a **thumbnail of every character/prop and show the owner** before building scenes.
 5. Build in Godot 4.x, render with `pipeline/render_movie.sh`, deliver MP4 + project zip.
 6. Append anything learned to `docs/lessons.md` and commit.
+
+- **Rendering:** `docs/beam_cloud.md` (Beam.cloud GPU farm — primary), `docs/sheepit.md` (free fallback). Scripts: `pipeline/render_beam.py`, `pipeline/beam_farm.py`.

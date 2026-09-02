@@ -27,3 +27,16 @@ Agent needs API/SSH control, not a click UI.
 | SheepIt | free volunteer farm | ✅ | Blender only |
 | Google Colab | free, unpublished limits | ⚠️ forbids non-interactive use | avoid |
 On GPU: Godot Forward+ works (fog/GI/shadows), 10–20× faster; 5-min film ≈ 10 min render.
+
+## GPU rendering (decided 2026-09-02)
+| Service | Use | Notes |
+|---|---|---|
+| **Beam.cloud** | primary — serverless RTX 4090, ~$0.69/h, per-second billing | `docs/beam_cloud.md`, `pipeline/beam_farm.py` |
+| SheepIt | free fallback, permanent client on VPS | `docs/sheepit.md` |
+
+## Sound sources actually used in the test film
+| Asset | Source | Licence |
+|---|---|---|
+| Night crickets ambience (sfx 1783) | https://mixkit.co/free-sound-effects/night/ | Mixkit Free License (no account) |
+| Footsteps on pavement (sfx 537) | https://mixkit.co/free-sound-effects/footsteps/ | Mixkit Free License |
+Mixkit preview MP3s are downloadable directly: `https://assets.mixkit.co/active_storage/sfx/<id>/<id>-preview.mp3` (ids are in the page HTML as `data-audio-player-item-id-value`).

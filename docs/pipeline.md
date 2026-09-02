@@ -40,3 +40,6 @@ ffmpeg -framerate 30 -i out/frame%08d.png -c:v libx264 -crf 20 -pix_fmt yuv420p 
 
 ## 7. Deliver
 MP4 + project zip (exclude `.godot/`) + `CREDITS.md`. State clearly: scripted autopilot, renderer used, missing audio, known glitches.
+
+## Render step (updated 2026-09-02)
+Render on Beam.cloud with `pipeline/beam_farm.py` (upload → render → collect → check → assemble). Details and gotchas: `docs/beam_cloud.md`.
