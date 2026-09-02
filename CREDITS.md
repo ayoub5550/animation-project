@@ -30,3 +30,22 @@ Nothing in this film was modelled, animated or recorded by hand — everything i
 | Story | Public‑domain premise after J. M. Barrie (1911); no Disney names/designs/music | — | PD |
 | Software | Blender 4.2.14 (Cycles/OptiX, Toon BSDF, Freestyle), ffmpeg | — | GPL / LGPL |
 | Rendering | Beam.cloud RTX 4090 ×3 accounts (frames 193–1589) + local CPU (frames 1590–1728 after token loss) | — | — |
+
+# CREDITS — «الطفل الذي لا يكبر» / "The Boy Who Never Grows Up" — realistic dark Peter Pan short (62 s, 1440 frames, 1080p, 2026-09-02)
+
+| Element | Asset | Source | Licence |
+|---|---|---|---|
+| Peter | Bryce (rigged, clothes darkened by material multiply) — Breathing Idle, Standing Idle, Looking Behind, Kneeling Prayer, Kneeling Idle, Careful Walk, Standard Walk | Adobe Mixamo | Mixamo terms |
+| Lost boy | Lewis — Breathing Idle, Standard Walk, Run Look Back, Running, Look Around Nervous | Adobe Mixamo | Mixamo terms |
+| Wendy (adult) | Kate — Breathing Idle, Standing Idle, Look Around Nervous, Nervous Look Loop | Adobe Mixamo | Mixamo terms |
+| Nursery props | old_bed_frame, vintage_day_bed, Rockingchair_01, vintage_oil_lamp, wooden_candlestick, vintage_grandfather_clock_01, fancy_picture_frame_01, wooden_bookshelf_worn, painted_wooden_chair_01, rollershutter_window_01 | Poly Haven | CC0 |
+| Forest / graveyard | pine_tree_01, fir_tree_01, dead_tree_trunk, dead_tree_trunk_02, tree_stump_01, rock_moss_set_01, fern_02, pine_roots, boulder_01, wooden_lantern_01, pine_sapling_medium | Poly Haven | CC0 |
+| Textures | decrepit_wallpaper, wood_floor, damaged_plaster, brown_mud_leaves_01, dry_decay_leaves, weathered_planks | Poly Haven | CC0 |
+| HDRIs | moonlit_golf, kloppenheim_07_puresky, dikhololo_night | Poly Haven | CC0 |
+| SFX / ambience | Scary woods at night (2483), Scary graveyard wind (1157), Creepy tomb ambience (2500), Wind cold interior (1172), Door creak opened by the wind (1163), Wooden floorboard creak (337), Man running in the forest (1236), Walking in the forest (1214), Ghostly whoosh passing (2623), Slow heartbeat (494), Horror impact (773), Terror sweep of darkness (2630), Haunted slow orchestra (634) | Mixkit | Mixkit Free License |
+| Narration | Arabic VO, ElevenLabs `eleven_multilingual_v2`, voice "george" | ElevenLabs (agent tooling) | per ElevenLabs terms |
+| Story | After J. M. Barrie, *The Little White Bird* (1902) and *Peter and Wendy* (1911) — public domain; no Disney names/designs/music | — | PD |
+| Software | Blender 4.2.14 (Cycles CPU, OIDN), ffmpeg | — | GPL / LGPL |
+| Rendering | Local CPU in the agent sandbox (17 cores, 1080p/32 spp ≈ 50–70 s/frame); owner's AMD Developer Cloud credit planned for the remainder | — | — |
+
+Nothing here was modelled, rigged, animated or recorded by hand — assembled from free assets only (see `RULES.md`).
