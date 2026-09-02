@@ -5,3 +5,6 @@
 - 2026‑09‑02 — GitHub integration cannot create repos or change visibility (403). The owner must do that; the agent pushes.
 - 2026‑09‑02 — Signup CAPTCHAs (Freesound, Pixabay, Zapsplat, Epic) stop automated registration. Agents must not bypass them; ask the owner to click through once. BlenderKit registers with email only (no CAPTCHA). Sketchfab signup = Epic Games SSO.
 - 2026‑09‑02 — `zip` is not installed in the sandbox; use Python `zipfile`.
+- 2026‑09‑02 — SheepIt gates: ≥10 frames rendered for others + profile image before you may add a project. Start the client early.
+- 2026‑09‑02 — Blender/Mixamo: the T‑pose FBX import leaves an action assigned (`animation_data.action`) that overrides the NLA → set it to None. Mixamo clip actions are in cm; the armature is scaled 0.01 so they still match. Use `inplace:true` for Walking and move the object with keyframes (root motion in a repeated strip snaps back each loop). A camera target parented to the 0.01‑scaled rig ends up at the feet — use a Copy Location constraint with world offset instead.
+- 2026‑09‑02 — Eevee Next renders headless with `LIBGL_ALWAYS_SOFTWARE=1` (llvmpipe), ~30 s/frame at 480p/8 samples on 1 core. Fine for previews, not for finals.
