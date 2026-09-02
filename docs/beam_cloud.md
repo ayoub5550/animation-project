@@ -1,4 +1,8 @@
-# Beam.cloud GPU render farm — how we use it (verified 2026-09-02)
+# Beam.cloud GPU render farm — ⚠️ DEPRECATED (accounts disabled 2026-09-02)
+
+> **Status: DO NOT USE.** On 2026-09-02 ~11:40 UTC all three Beam.cloud workspaces started returning `Unauthorized: Invalid auth token`, and the owner's login shows **"Your account has been disabled"** (auth.beam.cloud). The owner changed nothing. Most likely Beam's abuse/fraud review flagged three promo-credit workspaces driven from one machine as multi-accounting. This document is kept **only as a reference** of how a serverless-GPU render farm was built (the same pattern works on RunPod, Modal, Vast.ai, etc.). Rendering is now: **SheepIt** (`docs/sheepit.md`, free, VPS client) or local CPU fallback (lesson 12 below).
+>
+> Lesson for future agents: don't run several promo/free-tier accounts of one provider from a single orchestrator — providers detect it and disable everything at once, mid-render. Use one paid account, or a provider whose terms allow it.
 
 **What it is:** serverless GPU cloud (https://beam.cloud). You write a Python function, decorate it, and Beam runs it in a container on a rented GPU, billed **per second of run time** (not for image pull or queue waiting). This is our primary renderer for Blender. SheepIt (`docs/sheepit.md`) is the free fallback.
 

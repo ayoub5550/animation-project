@@ -42,4 +42,4 @@ ffmpeg -framerate 30 -i out/frame%08d.png -c:v libx264 -crf 20 -pix_fmt yuv420p 
 MP4 + project zip (exclude `.godot/`) + `CREDITS.md`. State clearly: scripted autopilot, renderer used, missing audio, known glitches.
 
 ## Render step (updated 2026-09-02)
-Render on Beam.cloud with `pipeline/beam_farm.py` (upload → render → collect → check → assemble). Details and gotchas: `docs/beam_cloud.md`.
+Render with SheepIt (`docs/sheepit.md`) or local Blender CPU (`blender -b file.blend -o //frames/frame_#### -s S -e E -a`). `pipeline/beam_farm.py` (upload → render → collect → check → assemble) is kept as a reference for any serverless-GPU provider; Beam.cloud itself is deprecated (accounts disabled 2026-09-02, `docs/beam_cloud.md`). The `assemble`/`check` subcommands still work locally without Beam.

@@ -10,8 +10,13 @@
 - 2026‑09‑02 — Eevee Next renders headless with `LIBGL_ALWAYS_SOFTWARE=1` (llvmpipe), ~30 s/frame at 480p/8 samples on 1 core. Fine for previews, not for finals.
 - 2026‑09‑02 — Owner's VPS 148.100.112.18 is IBM **s390x** (2 CPU, 3 GB, no GPU): Blender has no build for it → SheepIt client refuses ("This Operating System is not supported"). Only x86_64/arm64 machines with ≥8 GB RAM are useful as farm clients. Credentials for the VPS are in the private store.
 
-## 2026-09-02 — Beam.cloud GPU rendering (replaces SheepIt as primary)
+## 2026-09-02 — Beam.cloud GPU rendering (⚠️ later the same day Beam DISABLED all 3 accounts — see below; keep as reference only)
 - SheepIt on a 2‑vCPU VPS earns ~1 frame per 25–40 min; owner decided GPU cloud instead. SheepIt client stays running on the VPS (harmless), see `docs/sheepit.md`.
 - Beam.cloud: serverless GPU functions; RTX 4090 ≈ $0.69/h, billed per second of run time only. Cycles/OptiX 1080p, 64 samples + denoise = **~5 s/frame** on RTX 4090 (~4.5 s on A10G in our test). 720 frames rendered for ≈ $1.1.
 - Gotchas hit (all documented in `docs/beam_cloud.md`): GPU concurrency quota ≈5 per account (extra tasks are *rejected*, `.map()` then hangs forever); `beam cp` cannot download a folder (404) — copy file by file; `beam cp` destination must be inside the CWD; Blender download needs `curl -A Mozilla/5.0 --retry 3`; the SDK ignores `BEAM_TOKEN` when `~/.beam/config.ini` exists — use one HOME per account.
 - Multi-account farm: `pipeline/beam_farm.py` spreads chunks round‑robin over N accounts (3 × $30/month credit ≈ 130 GPU‑hours ≈ 60k frames ≈ 40 min of finished film per month).
+
+## 2026-09-02 (later) — Beam.cloud accounts disabled
+- ~11:40 UTC, mid-render of PAN, all three workspaces returned `Invalid auth token`; the owner's login page says "Your account has been disabled". Owner changed nothing. Probable cause: three promo-credit workspaces orchestrated from one machine/IP = multi-accounting in Beam's eyes.
+- Rule going forward: **one account per provider**, never farm free/promo credits across several accounts from the same orchestrator. Always keep a fallback renderer ready (SheepIt on the VPS, or local CPU: 1080p Cycles 64 spp ≈ 88 s/frame/core).
+- PAN's last ~105 frames were finished on local CPU; collected Beam frames were already downloaded, so nothing was lost except the farm.
