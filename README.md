@@ -29,4 +29,4 @@ Produce short animated films (and game prototypes) by **collecting, arranging an
 - **Rendering:** `docs/sheepit.md` (SheepIt — free, current renderer) or local Blender CPU. `docs/beam_cloud.md` is **deprecated** (Beam disabled the accounts 2026-09-02) and kept only as a reference for building a serverless-GPU farm; scripts `pipeline/render_beam.py`, `pipeline/beam_farm.py` are the reference implementation.
 
 - **Reference example:** `examples/street_night/` — the first finished test film (video + contact sheet). Quality floor and proof the method works.
-- **Second film:** `examples/pan/ (PAN, 76 s cartoon horror — see its README)/` — 76 s cartoon horror short "PAN" (storyboard → templates → farm render). Story/storyboard **first**, then pick templates for each shot — the owner's rule after Street Night. Build script + storyboard in `films/pan/`.
+- **Second film:** `examples/pan/` — 76 s cartoon horror short "PAN" (storyboard → templates → farm render). Story/storyboard **first**, then pick templates for each shot — the owner's rule after Street Night. Build script + storyboard in `films/pan/`.
