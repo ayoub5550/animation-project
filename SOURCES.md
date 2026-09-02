@@ -15,3 +15,15 @@ Rule: prefer CC0 → then CC-BY (auto-write CREDITS.md) → read each file's lic
 | Voice | Viktor TTS tool (general_tools); lip sync via Rhubarb Lip Sync (needs face blend shapes — Mixamo models have none) | |
 | Fonts | Google Fonts (good Arabic) | OFL |
 | Tools | Godot (scenes + `--write-movie`), Blender (better lighting/compositing), ffmpeg | OSS |
+
+## GPU rendering services (researched 2026-09-02)
+Agent needs API/SSH control, not a click UI.
+| Service | Cost | Automatable | Note |
+|---|---|---|---|
+| Vast.ai | RTX 3090 ≈ $0.20/h, RTX 4090 ≈ $0.29/h | ✅ CLI + SSH | cheapest; prepaid; owner gives API key |
+| RunPod | RTX 3090 $0.22, RTX 4090 $0.34 (Community) | ✅ API + SSH | more stable |
+| Kaggle | free ~30 GPU h/week (T4/P100), 12 h sessions | ✅ Kaggle API (`kaggle kernels push`) | best free option; owner provides kaggle.json |
+| Lightning AI | free 15 credits/mo (≈22–80 GPU h) | ✅ SSH | phone verification → owner signs up |
+| SheepIt | free volunteer farm | ✅ | Blender only |
+| Google Colab | free, unpublished limits | ⚠️ forbids non-interactive use | avoid |
+On GPU: Godot Forward+ works (fog/GI/shadows), 10–20× faster; 5-min film ≈ 10 min render.
