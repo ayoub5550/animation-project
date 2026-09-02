@@ -19,3 +19,9 @@ Get started → "Add your project" → upload the packed `.blend` → choose sce
 
 ## Test project prepared
 `street_night.blend` (208 MB packed): Mixamo "James" walks down a Poly Haven night street, stops under a street lamp, looks around. 720 frames @ 24 fps, Eevee, 1080p. Built entirely by script (`pipeline/blender_build_scene.py`) from downloaded templates. Local software-GL preview: ~30 s/frame at 480p.
+
+## Permanent client on the owner's x86 VPS (set up 2026-09-02)
+- Host `185.114.48.164` (Ubuntu 26.04, 2 vCPU, 3.9 GB RAM, no GPU; also runs the owner's production Node/Python apps — do not starve them). Credentials in the private store.
+- Service: `/etc/systemd/system/sheepit.service` → `systemctl status sheepit`, log `/opt/sheepit/client.log` (lines use `\r`; read with `tr '\r' '\n'`). Flags: `-cores 1 -memory 1800M -priority 19 --headless --no-gpu`, cgroup `MemoryMax=2300M`, `CPUWeight=20`, `Restart=always`, enabled at boot.
+- Added a 4 GB swapfile (`/swapfile`, in fstab) — without it the first project failed with "Project tried to use too much memory". Small-memory projects only; expect "No job available" pauses (retries every 5 min). First frames uploaded 08:35 UTC.
+- Hostname shown on SheepIt: `ayoub-vps-srv8394`.
