@@ -74,11 +74,12 @@ def ls(acc, path):
     return r.stdout if r.returncode == 0 else ""
 
 
-def upload(blend_path):
+def upload(blend_path, force=False):
+    """Upload the .blend to every account's volume. --force re-uploads (after editing the scene!)."""
     blend = Path(blend_path)
     for acc in load_accounts():
         ensure_volume(acc)
-        if blend.name in ls(acc, ""):
+        if not force and blend.name in ls(acc, ""):
             print(f"[{acc['name']}] {blend.name} already on volume, skipping")
             continue
         print(f"[{acc['name']}] uploading {blend.name} ({blend.stat().st_size/1e6:.0f} MB) ...")
@@ -110,12 +111,15 @@ def chunk_result(run):
     return int(m[-1]), ""
 
 
-def render(blend, start, end, chunk=90, engine="CYCLES", samples=64):
+def render(blend, start, end, chunk=90, engine="CYCLES", samples=64, ranges=None):
     accs = load_accounts()
     (HERE / "farm_logs").mkdir(exist_ok=True)
     state = json.loads(STATE.read_text()) if STATE.exists() else {}
     done = {tuple(x) for x in state.get("done", [])} if state.get("blend") == blend else set()
-    queue = [r for r in chunk_ranges(start, end, chunk) if r not in done]
+    if ranges:  # explicit re-render list "A-B,C-D" (e.g. from `check` output); ignores done-state
+        queue = [c for r in ranges.split(",") for c in chunk_ranges(int(r.split("-")[0]), int(r.split("-")[1]), chunk)]
+    else:
+        queue = [r for r in chunk_ranges(start, end, chunk) if r not in done]
     print(f"{len(queue)} chunks to render across {len(accs)} accounts "
           f"(max {sum(a['max_parallel'] for a in accs)} parallel GPUs)")
     running, attempts, t0 = [], {}, time.time()
@@ -146,7 +150,15 @@ def render(blend, start, end, chunk=90, engine="CYCLES", samples=64):
                 STATE.write_text(json.dumps({"blend": blend, "done": sorted(done)}))
             else:
                 print(f"[{run['acc']['name']}] FAILED {a}-{b} ({frames} frames)\n{err}")
-                if attempts[(a, b)] < 3 * len(accs):
+                if "quota exceeded" in err or "concurrency_limit" in err:
+                    # not a render failure: the account has no free GPU slot right now.
+                    # don't burn an attempt, back off and requeue (other launchers / accounts may be busy)
+                    attempts[(a, b)] -= 1
+                    print(f"  -> GPU quota busy on {run['acc']['name']}, waiting 90 s before requeue")
+                    time.sleep(90)
+                    accs.append(accs.pop(accs.index(run["acc"])))
+                    queue.append((a, b))
+                elif attempts[(a, b)] < 3 * len(accs):
                     # move the failing account to the back so another one gets the retry
                     accs.append(accs.pop(accs.index(run["acc"])))
                     queue.append((a, b))
@@ -216,10 +228,11 @@ def main():
         sys.exit(__doc__)
     mode, args = sys.argv[1], sys.argv[2:]
     if mode == "upload":
-        upload(args[0])
+        upload(args[0], force="--force" in sys.argv)
     elif mode == "render":
         render(Path(args[0]).name, int(args[1]), int(args[2]), chunk=opt("--chunk", 90, int),
-               engine=opt("--engine", "CYCLES"), samples=opt("--samples", 64, int))
+               engine=opt("--engine", "CYCLES"), samples=opt("--samples", 64, int),
+               ranges=opt("--ranges", None))
     elif mode == "collect":
         collect(args[0], args[1])
     elif mode == "check":

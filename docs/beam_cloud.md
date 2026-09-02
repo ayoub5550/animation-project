@@ -59,6 +59,15 @@ Behaviour: chunks are launched **round-robin**, ≤ `max_parallel` (5) running p
 5. First run per account builds the image (~5–10 min); afterwards it's cached and containers start in seconds. Not billed.
 6. Frames land on the volume, not your disk — always `collect` and `check` before `assemble`.
 
+## Lessons from the PAN render (2026-09-02, 1440 GPU frames + 105 CPU frames)
+7. **`beam` must be on PATH** for `beam_farm.py` (it shells out to the CLI): `export PATH=<venv>/bin:$PATH` first, else `FileNotFoundError: 'beam'` and `collect` silently downloads nothing.
+8. **One launcher per frame range.** Never start a second `render` over an overlapping range and never chain launchers (`a && b`): the second one re-launches chunks the first is still rendering → duplicates/CANCELLED tasks and wasted credit (~$1 lost this way).
+9. Long jobs from an agent sandbox: `setsid nohup python beam_farm.py render ... > log 2>&1 < /dev/null & disown`, then poll `beam task list` (truth) — Python stdout is buffered and state files lag.
+10. GPU-quota rejections are not render failures: the farm now sleeps 90 s and requeues without burning an attempt (`--force` on `upload` re-uploads an edited .blend).
+11. `render ... --ranges 1590-1632,1653-1680 --chunk 16` re-renders exactly the ranges printed by `check` (ignores `farm_state.json`).
+12. **Tokens can die mid-job.** All three workspace tokens returned `Unauthorized: Invalid auth token` at the same minute (~30 min after the farm finished) with no change on our side. Always `collect` immediately after each launcher finishes, and keep a CPU fallback: Blender 4.2 CPU, Cycles 64 spp + OpenImageDenoise, 1080p Toon scene ≈ **88 s/frame** on 1 core (`frame_#### -s A -e B -a`). Check https://platform.beam.cloud → Settings → API keys when this happens and create new keys; update `~/.beam/accounts.json` + each `~/.beam/config.ini` under the per-account HOMEs.
+13. Measured PAN cost: 1440 frames Cycles Toon 1080p ≈ 2.0 GPU-hours ≈ **$1.4** spread over 3 accounts (+ ≈$1 duplicates from lesson 8).
+
 ## Costs seen
 - Test film 720 frames @1080p Cycles: ≈ 60 GPU-min ≈ **$0.7–1.1** total.
 - Estimate: 5‑minute film (7200 frames) ≈ $8–12; the three $30 credits ≈ 130 GPU-hours/month ≈ 60k frames ≈ 40 min of finished 24 fps film.

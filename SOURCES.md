@@ -40,3 +40,7 @@ On GPU: Godot Forward+ works (fog/GI/shadows), 10–20× faster; 5-min film ≈ 
 | Night crickets ambience (sfx 1783) | https://mixkit.co/free-sound-effects/night/ | Mixkit Free License (no account) |
 | Footsteps on pavement (sfx 537) | https://mixkit.co/free-sound-effects/footsteps/ | Mixkit Free License |
 Mixkit preview MP3s are downloadable directly: `https://assets.mixkit.co/active_storage/sfx/<id>/<id>-preview.mp3` (ids are in the page HTML as `data-audio-player-item-id-value`).
+
+## Sound sources used in "PAN" (2026-09-02)
+Mixkit, all no-account: music `https://assets.mixkit.co/music/671/671.mp3` ("Piano Horror"); SFX ids 2484, 1143, 561 (horror), 2658 (wind), 337 (creak), 1059 (clock), 492 (heartbeat), 2472 (birds), 1489 (whoosh) via the preview-MP3 URL pattern above. Narration: ElevenLabs multilingual v2 (Arabic).
+Characters: Mixamo stylized set (Timmy, Goblin, Amy, Michelle) — ids in `films/pan/STORYBOARD.md`. Props/HDRIs: Poly Haven via `pipeline/polyhaven_download.py`.
